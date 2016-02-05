@@ -1,20 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace TradingAtomics
+namespace Exilion.TradingAtomics
 {
     public static class Extensions
     {
-        public static string FormatAs(this string format, params object[] args)
-        {
-            return string.Format(format, args);
-        }
 
         public static bool AlmostEquals(this decimal d1, decimal d2, int precision = 8)
         {
@@ -30,16 +22,6 @@ namespace TradingAtomics
             return stdDev;
         }
 
-        public static T DeepClone<T>(this T a)
-        {
-            using (var stream = new MemoryStream())
-            {
-                var formatter = new BinaryFormatter();
-                formatter.Serialize(stream, a);
-                stream.Position = 0;
-                return (T)formatter.Deserialize(stream);
-            }
-        }
     }
     public static class EnumExtension
     {

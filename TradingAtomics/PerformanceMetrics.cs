@@ -1,4 +1,4 @@
-﻿namespace TradingAtomics
+﻿namespace Exilion.TradingAtomics
 {
     public class PerformanceMetrics
     {
@@ -12,10 +12,10 @@
             Count = count;
         }
         public long Count { get; private set; }
-        public decimal SharpeRatio { get; private set; } // pnl
-        public decimal MaxDrawdown{ get; private set; } // price
-        public decimal WinningTrades { get; private set; } // pnl
-        public decimal LoosingTrades { get; private set; } // pnl
-        public decimal TotalPnL { get; private set; } // pnl
+        public decimal SharpeRatio { get; private set; } 
+        public decimal MaxDrawdown{ get; private set; } 
+        public decimal WinningTrades { get; private set; }
+        public decimal LoosingTrades { get; private set; }
+        public decimal TotalPnL { get; private set; } 
     }
 }

@@ -33,7 +33,6 @@ namespace Exilion.TradingAtomics
         {
             _values = orig._values;
         }
-        //public IReadOnlyList<TimeValue<T>> Data { get { return _values;} }
 
         public TimeSeries<T> Add(DateTime time, T value )
         {
@@ -42,6 +41,7 @@ namespace Exilion.TradingAtomics
             return clone;
         }
 
+        #region IEnumerable
         public IEnumerator<TimeValue<T>> GetEnumerator()
         {
             return _values.GetEnumerator();
@@ -58,26 +58,7 @@ namespace Exilion.TradingAtomics
         {
             get { return _values[index]; }
         }
-
+        #endregion IEnumerable
     }
 
-    public class TimeValue<T>
-    {
-        public TimeValue(DateTime time, T value)
-        {
-            Time = time;
-            Value = value;
-        }
-        public DateTime Time { get; private set; }
-        public T Value { get; private set; }
-        public override string ToString()
-        {
-            return string.Format("{0} = {1}",Time, Value);
-        }
-
-        internal TimeValue<T> Clone()
-        {
-           return new TimeValue<T>(Time,Value);
-        }
-    }
 }

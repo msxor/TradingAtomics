@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using TradingAtomics;
 
 namespace Exilion.TradingAtomics
 {
@@ -78,8 +77,8 @@ namespace Exilion.TradingAtomics
             return maxDrawdownFrom.Value - maxDrawdownTo.Value;
         }
         /// <summary>
-        /// transforms to cumulative series,
-        /// e.g. 1,2,-1,1 => 1,3,2,3
+        /// transforms from pnl series to cumulative series
+        /// e.g. 1,2,-1,4 => 1,3,2,6
         /// </summary>
         /// <returns></returns>
         public static TimePriceSeries FromPnLSeries(TimePriceSeries pnlSeries)
@@ -98,7 +97,7 @@ namespace Exilion.TradingAtomics
         }
         /// <summary>
         /// transforms to pnl series,
-        /// e.g. 1,3,2,3 => 0,2,-1,1
+        /// e.g. 1,3,2,6 => 0,2,-1,4
         /// </summary>
         /// <returns></returns>
         public TimePriceSeries ToPnLSeries()
