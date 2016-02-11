@@ -6,9 +6,9 @@ namespace Exilion.TradingAtomics
     /// Immutable generic time-value pair
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class TimeValue<T>
+    public class DataPoint<T>
     {
-        public TimeValue(DateTime time, T value)
+        public DataPoint(DateTime time, T value)
         {
             Time = time;
             Value = value;
@@ -20,9 +20,9 @@ namespace Exilion.TradingAtomics
             return string.Format("{0} = {1}", Time, Value);
         }
 
-        internal TimeValue<T> Clone()
+        internal DataPoint<T> Clone()
         {
-            return new TimeValue<T>(Time, Value);
+            return new DataPoint<T>(Time, Value);
         }
     }
 }

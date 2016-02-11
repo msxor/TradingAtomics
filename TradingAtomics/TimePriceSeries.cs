@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Exilion.TradingAtomics.Core;
 
 namespace Exilion.TradingAtomics
 {
@@ -36,11 +37,11 @@ namespace Exilion.TradingAtomics
 
         private decimal CalculateMaxDrawdown()
         {
-            TimeValue<decimal> peak = this.First();//.Clone(); 
-            TimeValue<decimal> through = this.First();//.Clone();
+            DataPoint<decimal> peak = this.First();//.Clone(); 
+            DataPoint<decimal> through = this.First();//.Clone();
 
-            TimeValue<decimal> maxDrawdownFrom = peak;
-            TimeValue<decimal> maxDrawdownTo = through;
+            DataPoint<decimal> maxDrawdownFrom = peak;
+            DataPoint<decimal> maxDrawdownTo = through;
 
             foreach (var current in this)
             {

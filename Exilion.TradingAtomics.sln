@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exilion.TradingAtomics", "T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exilion.TradingAtomics.UT", "Exilion.TradingAtomics.UT\Exilion.TradingAtomics.UT.csproj", "{60671995-22B5-409A-A2F2-246E69904A4F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exilion.TradingAtomics.Indicators", "Exilion.TradingAtomics.Indicators\Exilion.TradingAtomics.Indicators.csproj", "{4E4D06D8-703B-4E37-8B3F-7EB9476FC8CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exilion.TradingAtomics.Core", "Exilion.TradingAtomics.Core\Exilion.TradingAtomics.Core.csproj", "{CA45BE46-EF87-46B8-BF76-C66B2C224982}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{60671995-22B5-409A-A2F2-246E69904A4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60671995-22B5-409A-A2F2-246E69904A4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60671995-22B5-409A-A2F2-246E69904A4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E4D06D8-703B-4E37-8B3F-7EB9476FC8CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E4D06D8-703B-4E37-8B3F-7EB9476FC8CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E4D06D8-703B-4E37-8B3F-7EB9476FC8CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E4D06D8-703B-4E37-8B3F-7EB9476FC8CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA45BE46-EF87-46B8-BF76-C66B2C224982}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA45BE46-EF87-46B8-BF76-C66B2C224982}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA45BE46-EF87-46B8-BF76-C66B2C224982}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA45BE46-EF87-46B8-BF76-C66B2C224982}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

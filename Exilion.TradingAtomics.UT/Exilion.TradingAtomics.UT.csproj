@@ -36,6 +36,22 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Reactive.Core, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rx-Core.2.2.5\lib\net45\System.Reactive.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rx-Interfaces.2.2.5\lib\net45\System.Reactive.Interfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.Linq, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rx-Linq.2.2.5\lib\net45\System.Reactive.Linq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.PlatformServices, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rx-PlatformServices.2.2.5\lib\net45\System.Reactive.PlatformServices.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,6 +59,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IndicatorTests\CountIndicatorTest.cs" />
+    <Compile Include="IndicatorTests\MovingAverageTest.cs" />
     <Compile Include="PerformanceMetricsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -50,6 +68,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Exilion.TradingAtomics.Core\Exilion.TradingAtomics.Core.csproj">
+      <Project>{CA45BE46-EF87-46B8-BF76-C66B2C224982}</Project>
+      <Name>Exilion.TradingAtomics.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Exilion.TradingAtomics.Indicators\Exilion.TradingAtomics.Indicators.csproj">
+      <Project>{4E4D06D8-703B-4E37-8B3F-7EB9476FC8CE}</Project>
+      <Name>Exilion.TradingAtomics.Indicators</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TradingAtomics\Exilion.TradingAtomics.csproj">
       <Project>{DED8E081-2C65-444F-9A69-6295B1E08D63}</Project>
       <Name>Exilion.TradingAtomics</Name>
