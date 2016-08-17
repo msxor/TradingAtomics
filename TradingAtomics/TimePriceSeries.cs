@@ -21,7 +21,8 @@ namespace Exilion.TradingAtomics
             var stdDev = allValues.StdDevP();
             var avgPnL = allValues.Average();
             var totalPnL = allValues.Sum();
-            var maxDrawdown = CalculateMaxDrawdown();
+
+            
 
             decimal sharpeRatio = 0;
             if (stdDev != 0)
@@ -29,23 +30,26 @@ namespace Exilion.TradingAtomics
             var pm = new PerformanceMetrics
                 (
                     sharpeRatio: sharpeRatio,
-                    maxDrawdown: maxDrawdown,
+                    maxDrawdown: Decimal.Zero, 
+                    maxDrawdownPc: Decimal.Zero, 
+                    maxDrawdownRecoveryTime: TimeSpan.Zero, 
                     winningTrades: allValues.Count(v => v > 0),
                     loosingTrades: allValues.Count(v => v < 0),
                     totalPnL: totalPnL,
                     count: allValues.Count
                 );
+            pm = CalculateMaxDrawdownMetrics(pm);
             return pm;
         }
 
-        private decimal CalculateMaxDrawdown()
+        private PerformanceMetrics CalculateMaxDrawdownMetrics(PerformanceMetrics pmIn)
         {
             DataPoint<decimal> peak = this.First();//.Clone(); 
             DataPoint<decimal> through = this.First();//.Clone();
 
             DataPoint<decimal> maxDrawdownFrom = peak;
             DataPoint<decimal> maxDrawdownTo = through;
-
+            DataPoint<decimal> drawdownRecoveryPoint = peak;
             foreach (var current in this)
             {
                 if (current.Value > peak.Value)
@@ -59,6 +63,7 @@ namespace Exilion.TradingAtomics
                             // current drawdown exceeds previously recorded
                             maxDrawdownFrom = peak;
                             maxDrawdownTo = through;
+                            drawdownRecoveryPoint = current;
                         }
                     }
                     peak = current;
@@ -76,9 +81,28 @@ namespace Exilion.TradingAtomics
                     // current drawdown exceeds previously recorded
                     maxDrawdownFrom = peak;
                     maxDrawdownTo = through;
+                    drawdownRecoveryPoint = this.Last();
                 }
             }
-            return maxDrawdownFrom.Value - maxDrawdownTo.Value;
+
+            var maxDrawdown = maxDrawdownFrom.Value - maxDrawdownTo.Value;
+            var maxDrawdownPc = maxDrawdown / maxDrawdownFrom.Value;
+            var maxDrawdownRecoveryTime = drawdownRecoveryPoint.Time - maxDrawdownTo.Time;
+
+
+            PerformanceMetrics pm = new PerformanceMetrics
+                (
+                pmIn.SharpeRatio,
+                maxDrawdown,
+                maxDrawdownPc,
+                maxDrawdownRecoveryTime,
+                pmIn.WinningTrades,
+                pmIn.LoosingTrades,
+                pmIn.TotalPnL,
+                pmIn.Count
+
+                );
+            return pm;
         }
         /// <summary>
         /// transforms from pnl series to cumulative series

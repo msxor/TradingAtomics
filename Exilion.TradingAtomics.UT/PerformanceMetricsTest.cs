@@ -31,6 +31,8 @@ namespace Exilion.TradingAtomics.UT
             Assert.That(sut.LoosingTrades, Is.EqualTo(0));
             Assert.That(sut.WinningTrades, Is.EqualTo(8));
             Assert.That(sut.MaxDrawdown, Is.EqualTo(0));
+            Assert.That(sut.MaxDrawdownPc, Is.EqualTo(0));
+            Assert.That(sut.MaxDrawdownRecoveryTime, Is.EqualTo(TimeSpan.Zero));
 
         }
         [Test]
@@ -54,10 +56,41 @@ namespace Exilion.TradingAtomics.UT
             var sut = priceSeries.CalculatePerformanceMetrics();
 
             Assert.That(sut.MaxDrawdown, Is.EqualTo(11));
+            Assert.That(sut.MaxDrawdownPc, Is.EqualTo(11/16m));
+            Assert.That(sut.MaxDrawdownRecoveryTime, Is.EqualTo(TimeSpan.Zero));
 
             Assert.That(sut.Count, Is.EqualTo(10));
             Assert.That(sut.TotalPnL, Is.EqualTo(-11));
             Assert.That(sut.LoosingTrades, Is.EqualTo(8));
+            Assert.That(sut.WinningTrades, Is.EqualTo(0));
+        }
+        [Test]
+        public void Metrics_Flat()
+        {
+            var startTime = DateTime.Parse("1-1-2016");
+            TimePriceSeries priceSeries = new TimePriceSeries(new Dictionary<DateTime, decimal>
+            {
+                {startTime.AddDays(1),10},
+                {startTime.AddDays(2),10},
+                {startTime.AddDays(3),10},
+                {startTime.AddDays(4),10},
+                {startTime.AddDays(5),10},
+                {startTime.AddDays(6),10},
+                {startTime.AddDays(7),10},
+                {startTime.AddDays(8),10},
+                {startTime.AddDays(9),10},
+                {startTime.AddDays(10),10},
+            });
+
+            var sut = priceSeries.CalculatePerformanceMetrics();
+
+            Assert.That(sut.MaxDrawdown, Is.EqualTo(0));
+            Assert.That(sut.MaxDrawdownPc, Is.EqualTo(0));
+            Assert.That(sut.MaxDrawdownRecoveryTime, Is.EqualTo(TimeSpan.Zero));
+
+            Assert.That(sut.Count, Is.EqualTo(10));
+            Assert.That(sut.TotalPnL, Is.EqualTo(0));
+            Assert.That(sut.LoosingTrades, Is.EqualTo(0));
             Assert.That(sut.WinningTrades, Is.EqualTo(0));
         }
         [Test]
@@ -73,14 +106,16 @@ namespace Exilion.TradingAtomics.UT
                 {startTime.AddDays(5),3},
                 {startTime.AddDays(6),2},//T
                 {startTime.AddDays(7),3},
-                {startTime.AddDays(8),4},
-                {startTime.AddDays(9),5},
+                {startTime.AddDays(8),3.5m},
+                {startTime.AddDays(9),4},
                 {startTime.AddDays(10),6},
             });
 
             var perfPrice = priceSeries.CalculatePerformanceMetrics();
 
             Assert.That(perfPrice.MaxDrawdown, Is.EqualTo(2));
+            Assert.That(perfPrice.MaxDrawdownPc, Is.EqualTo(0.50));
+            Assert.That(perfPrice.MaxDrawdownRecoveryTime, Is.EqualTo(TimeSpan.FromDays(4)));
 
         }
 
@@ -105,7 +140,8 @@ namespace Exilion.TradingAtomics.UT
             var perfPrice = priceSeries.CalculatePerformanceMetrics();
 
             Assert.That(perfPrice.MaxDrawdown, Is.EqualTo(6));
-
+            Assert.That(perfPrice.MaxDrawdownPc, Is.EqualTo(6/10m));
+            Assert.That(perfPrice.MaxDrawdownRecoveryTime, Is.EqualTo(TimeSpan.FromDays(4))); // actually, never recovered
         }
         [Test]
         public void Metrics_DD3_2Peaks()
@@ -128,6 +164,8 @@ namespace Exilion.TradingAtomics.UT
             var perfPrice = priceSeries.CalculatePerformanceMetrics();
 
             Assert.That(perfPrice.MaxDrawdown, Is.EqualTo(4));
+            Assert.That(perfPrice.MaxDrawdownPc, Is.EqualTo(4/6m));
+            Assert.That(perfPrice.MaxDrawdownRecoveryTime, Is.EqualTo(TimeSpan.FromDays(1)));// actually, never recovered
 
         }
 
@@ -152,7 +190,8 @@ namespace Exilion.TradingAtomics.UT
             var perfPrice = priceSeries.CalculatePerformanceMetrics();
 
             Assert.That(perfPrice.MaxDrawdown, Is.EqualTo(4));
-
+            Assert.That(perfPrice.MaxDrawdownPc, Is.EqualTo(4 / 8m));
+            Assert.That(perfPrice.MaxDrawdownRecoveryTime, Is.EqualTo(TimeSpan.FromDays(1)));// actually, never recovered
         }
         [Test]
         public void Metrics_Sharpe()
