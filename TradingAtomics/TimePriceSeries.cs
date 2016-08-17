@@ -5,14 +5,14 @@ using Exilion.TradingAtomics.Core;
 
 namespace Exilion.TradingAtomics
 {
-    public class TimePriceSeries:TimeSeries<decimal>
+    public class TimePriceSeries : TimeSeries<decimal>
     {
-        public TimePriceSeries(Dictionary<DateTime, decimal> values):base(values){}
-        public TimePriceSeries(IEnumerable<Tuple<DateTime, decimal>> values):base(values) {}
+        public TimePriceSeries(Dictionary<DateTime, decimal> values) : base(values) { }
+        public TimePriceSeries(IEnumerable<Tuple<DateTime, decimal>> values) : base(values) { }
 
         public PerformanceMetrics CalculatePerformanceMetrics()
         {
-            if(Count == 0)
+            if (Count == 0)
                 return null;
 
             var pnlSeries = ToPnLSeries();
@@ -23,12 +23,15 @@ namespace Exilion.TradingAtomics
             var totalPnL = allValues.Sum();
             var maxDrawdown = CalculateMaxDrawdown();
 
+            decimal sharpeRatio = 0;
+            if (stdDev != 0)
+                sharpeRatio = avgPnL / stdDev;
             var pm = new PerformanceMetrics
                 (
-                    sharpeRatio: avgPnL / stdDev,
+                    sharpeRatio: sharpeRatio,
                     maxDrawdown: maxDrawdown,
-                    winningTrades: allValues.Count(v=>v > 0),
-                    loosingTrades: allValues.Count(v=>v < 0),
+                    winningTrades: allValues.Count(v => v > 0),
+                    loosingTrades: allValues.Count(v => v < 0),
                     totalPnL: totalPnL,
                     count: allValues.Count
                 );
@@ -85,7 +88,7 @@ namespace Exilion.TradingAtomics
         public static TimePriceSeries FromPnLSeries(TimePriceSeries pnlSeries)
         {
             decimal cumValue = 0;
-            Dictionary<DateTime,decimal> newSeries = new Dictionary<DateTime, decimal>();
+            Dictionary<DateTime, decimal> newSeries = new Dictionary<DateTime, decimal>();
 
             foreach (var dataPoint in pnlSeries)
             {
@@ -103,7 +106,7 @@ namespace Exilion.TradingAtomics
         /// <returns></returns>
         public TimePriceSeries ToPnLSeries()
         {
-            if(Count == 0)
+            if (Count == 0)
                 throw new ApplicationException("Data can't be null");
 
             Dictionary<DateTime, decimal> newSeries = new Dictionary<DateTime, decimal>();
