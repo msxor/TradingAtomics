@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Exilion.TradingAtomics</id>
+    <version>1.0.0</version>
+    <title>Exilion.TradingAtomics</title>
+    <authors>msxor</authors>
+    <owners>msxor</owners>
+    <description>TradingAtomics project</description>
+    <releaseNotes>
+    </releaseNotes>
+    <summary>
+      Basic Timeseries and performance metrics objects to use in trading systems Currently supported metrics:
+
+      * MaxDrawdown
+      * Sharpe ratio
+      * WinningTrades
+      * LoosingTrades
+      * TotalPnL
+    </summary>
+    <language>en-US</language>
+    <projectUrl>https://github.com/msxor/TradingAtomics</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <copyright>Exilion  2016</copyright>
+  </metadata>
+  <files>
+    <file src="bin\*.dll" target="lib\net45" />
+  </files>
+</package>
